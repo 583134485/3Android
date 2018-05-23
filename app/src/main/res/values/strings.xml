@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">SEND</string>
+    <string name="title_activity_menudemo">menudemo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dialog_message">dialog_message</string>
+    <string name="dialog_title">dialog_title</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="saved_high_score_key">saved_high_score_key</string>
+    <string name="login">登录</string>
+    <string name="inputusername">用户名</string>
+    <string name="inputpassword">密码</string>
+</resources>
