@@ -42,7 +42,7 @@ public class HttpUtil {
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
                 final String responseStr = response.body().string();
-                System.out.println("resporse"+responseStr);
+               // System.out.println("resporse"+responseStr);
                 Bean bean= JSON.parseObject(responseStr,Bean.class);
                 //  Bean bean=new Gson().fromJson(responseStr,Bean.class);
 //                 Bean bean = gson.fromJson(response.body().charStream(), Bean.class);

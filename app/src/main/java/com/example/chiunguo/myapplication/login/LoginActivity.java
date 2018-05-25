@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             public void onClick(View v) {
                 username.setErrorEnabled(false);
                 password.setErrorEnabled(false);
-                presenter.login(getUsername(),getPassword());
+                presenter.login();
             }
         });
 

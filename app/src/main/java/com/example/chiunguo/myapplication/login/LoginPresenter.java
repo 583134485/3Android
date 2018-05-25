@@ -27,8 +27,10 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void login(String usernmae, String password) {
+    public void login() {
         //验证用户名和密码
+        String usernmae=loginview.getUsername();
+        String password=loginview.getPassword();
         if(validateAccount(usernmae)&&validatePassword(password)){
             loginview.showDialog("login success");
         }
@@ -39,7 +41,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void start() {
-
     }
 
     /**

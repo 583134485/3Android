@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showdialogone(View view){
         FireMissilesDialogFragment fireMissilesDialogFragment=new FireMissilesDialogFragment();
-        fireMissilesDialogFragment.showNow(getSupportFragmentManager(),"ds");
+        fireMissilesDialogFragment.show(getSupportFragmentManager(),"ds");
     }
 
     public void showAlertDiag(View view){

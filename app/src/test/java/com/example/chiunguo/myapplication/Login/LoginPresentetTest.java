@@ -25,66 +25,63 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class)
 public class LoginPresentetTest {
-
-
-
     private LoginActivity view;
 
     @Mock
     private LoginPresenter loginPresenter;
 
+  private  LoginContract.View mView;
+
+  private  LoginActivity loginView;
+
+  private LoginPresenter mPresenter;
 
     @Before
     public void setup(){
-        MockitoAnnotations.initMocks(this);
+       MockitoAnnotations.initMocks(this);
       // view = spy(Robolectric.buildActivity(LoginActivity.class).visible().get());
-       view=Robolectric.setupActivity(LoginActivity.class);
+       //view=Robolectric.setupActivity(LoginActivity.class);
         //loginPresenter=new LoginPresenter(view);
-    }
-    @Test
-    public void createPresenter_setsThePresenterToView() {
-        // Get a reference to the class under test
-      //  loginPresenter = new LoginPresenter(view);
-
-        // Then the presenter is set to the view
-        //verify(view).setPresenter(loginPresenter);
+      mView = mock(LoginContract.View.class);
+      mPresenter = new LoginPresenter(mView);
     }
 
     @Test
-    public void testLogin(){
-        String username="hhhhhhhhh";
-        String password="6666666";
-
-       // view = spy(Robolectric.buildActivity(LoginActivity.class).visible().get());
-        view=Robolectric.setupActivity(LoginActivity.class);
-
-        view.findViewById(R.id.login_button).performClick();
-//        toast=ShadowToast.getLatestToast();
-//        assertNotNull(toast);
-       // loginPresenter = new LoginPresenter(view);
-//        loginPresenter.login(username,password);
-//       verify(view).showDialog("login success");
-
-//         username="hhhhhhhhh";
-//         password="66666777";
-//        loginPresenter = new LoginPresenter(view);
-//        loginPresenter.login(username,password);
-//        verify(view).showDialog("login failed");
-//
-//        username="";
-//        password="33";
-//        loginPresenter = new LoginPresenter(view);
-//        loginPresenter.login(username,password);
-//        verify(view,times(2)).showDialog("login failed");
-
+    public void testWhenLoginSuccess(){
+    when(mView.getPassword()).thenReturn("6666666");
+    when(mView.getUsername()).thenReturn("jacj.httt");
+    mPresenter.login();
+    verify(mView).showDialog("login success");
     }
+
+
+    //these test  are all
+  @Test
+    public void testWhenTheUserNameIsEmpty(){
+      mPresenter = new LoginPresenter(mView);
+        when(mView.getUsername()).thenReturn("");
+        mPresenter.login();
+        verify(mView).showDialog("login failed");
+  }
+
+  @Test
+    public void testWhenPasswordIsError(){
+      mView = mock(LoginContract.View.class);
+      mPresenter = new LoginPresenter(mView);
+      when(mView.getUsername()).thenReturn("dddddddddd");
+      when(mView.getPassword()).thenReturn("");
+      mPresenter.login();
+      verify(mView).showDialog("login failed");
+  }
 
 
 

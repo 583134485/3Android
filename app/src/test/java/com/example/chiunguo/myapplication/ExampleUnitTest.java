@@ -2,10 +2,20 @@ package com.example.chiunguo.myapplication;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.example.chiunguo.myapplication.ServiceApi.DemoService;
 import com.example.chiunguo.myapplication.demo.Login;
+import com.example.chiunguo.myapplication.login.LoginActivity;
+import com.example.chiunguo.myapplication.login.LoginContract;
+import com.example.chiunguo.myapplication.login.LoginPresenter;
+import com.example.chiunguo.myapplication.model.Bean;
+import com.example.chiunguo.myapplication.util.FastJsonUtil;
 
+import org.bouncycastle.math.ec.ScaleYPointMap;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
@@ -16,8 +26,16 @@ import org.robolectric.shadow.api.Shadow;
 import org.robolectric.shadows.ShadowActivity;
 import org.robolectric.shadows.ShadowToast;
 
+import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.util.LinkedList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -113,13 +131,56 @@ public class ExampleUnitTest {
 
 //you can also verify using an argument matcher
        verify(mockedLinckedList).get(anyInt());
-
-
-
-
-
-
-
    }
+   //为什么 放在 这个test 就会有覆盖率  放在 自定义路径的 test 0% coverage
+    @Test
+    public void testWhenPasswordIsError(){
+        // LoginContract.View mView = mock(LoginContract.View.class);
+        LoginActivity mView=mock(LoginActivity.class);
+       LoginPresenter mPresenter = new LoginPresenter(mView);
+        when(mView.getUsername()).thenReturn("dddddddddd");
+        when(mView.getPassword()).thenReturn("");
+
+        mPresenter.login();
+
+        verify(mView).showDialog("login failed");
+    }
+    @Test
+    public  void testRetrofitDemo() throws IOException {
+        System.out.println("ssss");
+        Retrofit retrofit=new Retrofit.Builder()
+                .baseUrl("http://news-at.zhihu.com/api/4/news/before/")
+                .build();
+        DemoService demoService=retrofit.create(DemoService.class);
+
+        Call<ResponseBody> call = demoService.getDemo();
+        String a=call.execute().body().string();
+        System.out.println(a.toString());
+        Bean b=JSON.parseObject(a,Bean.class);
+        System.out.println(b.getDate().toString());
+
+        // 用法和OkHttp的call如出一辙,
+        // 不同的是如果是Android系统回调方法执行在主线程
+//        call.enqueue(new Callback<ResponseBody>()
+//        {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response)
+//            {
+//                try {
+//                    System.out.println(response.body().string());
+//                     bean= JSON.parseObject(response.body().toString(), Bean.class);
+//                    //System.out.println(bean.getDate().toString());
+//                  print(bean.getDate().toString());
+//                    Assert.assertNotNull(bean.getDate());
+//                    Log.i("d",bean.getDate().toString());
+//                }
+//                catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                t.printStackTrace(); } });
+    }
 
 }
