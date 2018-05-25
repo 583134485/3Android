@@ -16,4 +16,6 @@
     <string name="login">登录</string>
     <string name="inputusername">用户名</string>
     <string name="inputpassword">密码</string>
+    <string name="Assignment" >Assignment</string>
+    <string name="Blog">Blog</string>
 </resources>

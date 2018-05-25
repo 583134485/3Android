@@ -5,8 +5,13 @@ import com.example.chiunguo.myapplication.core.BaseView;
 
 public interface SummaryContract {
 
-    interface VIew extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter>{
 
+        boolean isActive();
+
+        void showcategories();
+
+        void showDialog(String message);
     }
 
     interface  Presenter extends BasePresenter{

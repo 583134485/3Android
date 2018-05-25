@@ -52,6 +52,7 @@
         <activity android:name=".OpenGLDemo" />
         <activity android:name=".login.LoginActivity" />
 
+
         <service
             android:name=".ExampleService"
             android:enabled="true"
